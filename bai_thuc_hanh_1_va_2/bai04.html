@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài tập 04 - HTML Form</title>
+    <style>
+        fieldset {
+            border: none; 
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+        form {
+        width: 600px; 
+        margin: 0 auto;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+        background-color: #fff; 
+        }
+    
+        legend {
+            font-weight: bold;
+        }
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .form-row label {
+            width: 160px;     
+            font-weight: bold;
+            padding-right: 10px;
+        }
+
+        .form-row input,
+        .form-row select,
+        .form-row textarea {
+            flex: 1;
+            padding: 5px;
+        }
+            
+    </style>
+</head>
+<body>
+    <form>
+        <fieldset>
+             <legend>Basic Info</legend><hr></hr>
+
+            <div class="form-row">
+                <label>Employee ID</label>
+                <input type="text" value="9" readonly style="border: none;">
+            </div>
+            <div class="form-row">
+
+            </div>
+            
+        <div class="form-row">
+            <label>Last Name</label>
+            <input type="text" value="Dodsworth">
+        </div>
+
+        <div class="form-row">
+            <label>First Name</label>
+            <input type="text" value="Anne">
+        </div>
+
+        <div class="form-row">
+            <label>Gender</label><br>
+            <div>
+            <input type="radio" name="gender"> Male <br>
+            <input type="radio" name="gender" checked> Female <br>
+            <input type="radio" name="gender"> ZZZ
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label>Title</label>
+            <input type="text" value="Sales Representative">
+        </div>
+
+        <div class="form-row">
+            <label>Suffix</label>
+            <input type="text" value="Ms.">
+        </div>
+
+        <div class="form-row">
+            <label>BirthDate</label>
+            <input type="date" value="1969-07-02">
+        </div>
+
+        <div class="form-row">
+            <label>HireDate</label>
+            <input type="datetime-local" value="1994-11-15T00:00">
+        </div>
+
+        <div class="form-row">
+            <label>SSN (if applicable)</label>
+            <input type="text">
+        </div>
+
+        <div class="form-row">
+            <label>Reports To</label>
+            <select>
+                <option selected>Buchanan</option>
+            </select>
+        </div>
+
+        </fieldset>
+        <fieldset>
+        <legend>Contact Info</legend><hr></hr>
+
+        <div class="form-row">
+            <label>Email</label>
+            <input type="email" value="name@example.com">
+        </div>
+
+        <div class="form-row">
+            <label>Address</label>
+            <input type="text" value="7 Houndstooth Rd.">
+        </div>
+
+        <div class="form-row">
+            <label>City</label>
+            <input type="text" value="London">
+        </div>
+
+        <div class="form-row">
+            <label>Region</label>
+            <input type="text">
+        </div>
+
+        <div class="form-row">
+            <label>Postal Code</label>
+            <input type="text" value="WG2 7LT">
+        </div>
+
+        <div class="form-row">
+            <label>Country</label>
+            <select>
+                <option>Russian Federation</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label>US Home Phone</label>
+            <input type="tel" value="(234)234-2342">
+        </div>
+
+        <div class="form-row">
+            <label>Photo</label>
+            <input type="text" value="EmpID9.bmp">
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Optional Info</legend><hr></hr>
+        <div class="form-row">
+            <label>Notes</label>
+            <textarea>Anne has a BA degree in English from St. Lawrence College.&#10;She is fluent in French and German.ZZZ.</textarea>
+        </div>
+
+        <div class="form-row">
+            <label>Preferred Shift</label>
+            <div>
+            <input type="checkbox" name="shift" checked> Regular<br>
+            <input type="checkbox" name="shift"> Grave Yard
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label>Active?</label>
+            <div>
+            <input type="checkbox" checked>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <label>Are you human?</label>
+            <div style="flex: 1;">
+                <div style="font-family: monospace; font-size: 20px; font-weight: bold; letter-spacing: 4px;">
+                TIDAWO
+                </div>
+                <div style="text-align: center; margin: 5px 0;">
+                <a href="#" style="text-decoration: none;">Click to change</a>
+                </div>
+                <input type="text" style="width: 100%;">
+            </div>
+            </div>
+    </fieldset>
+      
+       <hr></hr>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <button>&#9664;</button>
+            <button>&#9654;</button>
+        </div>
+
+        <div style="display: flex; gap: 5px;">
+            <button>
+            <span style="font-weight: bold;">💾</span> Submit
+            </button>
+            <button>
+            <span style="font-weight: bold;">❌</span> Cancel
+            </button>
+        </div>
+    </div>
+    <p style="font-size: 14px; font-weight: bold;">* required</p>
+    </form>
+</body>
+</html>
