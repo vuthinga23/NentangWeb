@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>CRUD Sinh Viên</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  
+
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Quản Lý Sinh Viên</a>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-lg-4 mb-4">
+      <h4>Thêm Sinh Viên</h4>
+      <form>
+        <div class="mb-3">
+          <label for="maSv" class="form-label">Mã SV</label>
+          <input type="text" class="form-control" id="maSv">
+        </div>
+        <div class="mb-3">
+          <label for="hoTen" class="form-label">Họ Tên</label>
+          <input type="text" class="form-control" id="hoTen">
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Giới tính</label><br>
+          <input type="radio" name="gender" value="Nam"> Nam
+          <input type="radio" name="gender" value="Nữ" checked> Nữ
+        </div>
+        <div class="mb-3">
+          <label for="dob" class="form-label">Ngày Sinh</label>
+          <input type="date" class="form-control" id="dob">
+        </div>
+        <button id="btnThem" type="button" class="btn btn-warning w-100">+ Thêm mới Sinh Viên</button>
+        <p id="thongBao" class="text-success fw-bold mt-2"></p>
+
+      </form>
+    </div>
+
+    <div style="flex:2;" class="col-lg-8">
+      <div class="responsive">
+        <div class="ha4">
+        <h4>Danh Sách Sinh Viên</h4>
+        </div>
+        <div class="table-responsive">
+          <table id="bangSinhVien" class="table table-bordered table-hover text-center">
+            <thead class="table-light">
+              <tr>
+                <th>STT</th>
+                <th>Mã Sv</th>
+                <th>Họ Tên</th>
+                <th>Email</th>
+                <th>Giới tính</th>
+                <th>Ngày Sinh</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>2251159345</td>
+                <td>Vũ Thị Ngà</td>
+                <td>vuthinga2003@mail.com</td>
+                <td>Nữ</td>
+                <td>2003-09-20</td>
+                <td>
+                  <a href="#" onclick="suaDong(this)"><i class="text-primary bi bi-pencil-square"></i></a>
+                  <a href="#" onclick="xoaDong(this)"><i class="text-primary bi bi-trash"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                  <td>2251262345</td>
+                  <td>Nguyễn Văn Nguyên</td>
+                  <td>nvn004@mail.com</td>
+                  <td>Nam</td>
+                  <td>2004-02-14</td>
+                  <td>
+                    <a href="#" onclick="suaDong(this)"><i class="text-primary bi bi-pencil-square"></i></a>
+                    <a href="#" onclick="xoaDong(this)"><i class="text-primary bi bi-trash"></i></a>
+                  </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                  <td>2251929384</td>
+                  <td>Trần Minh Tâm</td>
+                  <td>tam2101@mail.com</td>
+                  <td>Nữ</td>
+                  <td>2003-10-20</td>
+                  <td>
+                    <a href="#" onclick="suaDong(this)"><i class="text-primary bi bi-pencil-square"></i></a>
+                    <a href="#" onclick="xoaDong(this)"><i class="text-primary bi bi-trash"></i></a>
+                  </td>
+              </tr>
+            </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<script>
+  // document.getElementById("btnThem").addEventListener("click", function () {
+  //   alert("Đã nhấn nút Thêm");
+  // });
+  
+  let selectedRow = null;
+
+  document.getElementById("btnThem").addEventListener("click", function () {
+    let maSV = document.getElementById("maSv").value.trim();
+    let hoTen = document.getElementById("hoTen").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let gioiTinh = document.querySelector('input[name="gender"]:checked').value;
+    let ngaySinh = document.getElementById("dob").value;
+
+    if (maSV === "" || hoTen === "" || email === "" || ngaySinh === "") {
+      alert("Vui lòng điền đầy đủ thông tin!");
+      return;
+    }
+
+    let regexEmail = /^\S+@\S+\.\S+$/;
+    if (!regexEmail.test(email)) {
+      alert("Email không hợp lệ!");
+      return;
+    }
+
+    if (selectedRow === null) {
+      let table = document.getElementById("bangSinhVien").getElementsByTagName("tbody")[0];
+      let newRow = table.insertRow();
+      let stt = table.rows.length;
+
+      newRow.insertCell(0).innerText = stt;
+      newRow.insertCell(1).innerText = maSV;
+      newRow.insertCell(2).innerText = hoTen;
+      newRow.insertCell(3).innerText = email;
+      newRow.insertCell(4).innerText = gioiTinh;
+      newRow.insertCell(5).innerText = ngaySinh;
+      newRow.insertCell(6).innerHTML = `
+        <a href="#" onclick="suaDong(this)"><i class="text-primary bi bi-pencil-square"></i></a>
+        <a href="#" onclick="xoaDong(this)"><i class="text-primary bi bi-trash"></i></a>
+      `;
+
+     thongBao(" Thêm sinh viên thành công!");
+    } else {
+      
+      selectedRow.cells[1].innerText = maSV;
+      selectedRow.cells[2].innerText = hoTen;
+      selectedRow.cells[3].innerText = email;
+      selectedRow.cells[4].innerText = gioiTinh;
+      selectedRow.cells[5].innerText = ngaySinh;
+
+      thongBao(" Cập nhật thành công!");
+      selectedRow = null;
+      document.getElementById("btnThem").innerText = "+ Thêm mới Sinh Viên";
+    }
+
+    document.querySelector("form").reset();
+    capNhatSTT();
+  });
+
+  function xoaDong(btn) {
+  if (confirm("Bạn có chắc chắn muốn xoá?")) {
+    btn.parentElement.parentElement.remove();
+    capNhatSTT();
+
+    let thongBao = document.getElementById("thongBao");
+    thongBao.innerText = "🗑️ Xoá sinh viên thành công!";
+    setTimeout(() => {
+      thongBao.innerText = "";
+    }, 3000);
+  }
+  }
+
+ 
+  function capNhatSTT() {
+    let rows = document.querySelectorAll("#bangSinhVien tbody tr");
+    rows.forEach((row, index) => {
+      row.cells[0].innerText = index + 1;
+    });
+  }
+  function suaDong(btn) {
+    selectedRow = btn.parentElement.parentElement;
+
+    document.getElementById("maSv").value = selectedRow.cells[1].innerText;
+    document.getElementById("hoTen").value = selectedRow.cells[2].innerText;
+    document.getElementById("email").value = selectedRow.cells[3].innerText;
+
+    let gender = selectedRow.cells[4].innerText;
+    document.querySelector(`input[name="gender"][value="${gender}"]`).checked = true;
+
+    document.getElementById("dob").value = selectedRow.cells[5].innerText;
+
+    document.getElementById("btnThem").innerText = " Cập nhật sinh viên";
+  }
+  function thongBao(msg) {
+    let thongBao = document.getElementById("thongBao");
+    thongBao.innerText = msg;
+    setTimeout(() => {
+      thongBao.innerText = "";
+    }, 3000);
+  }
+
+
+</script>
+</body>
+</html>
