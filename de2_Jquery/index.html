@@ -7,6 +7,7 @@
  <link rel="stylesheet" href="bootstrap.min.css">  
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
  <style>
@@ -96,13 +97,13 @@
       </ul>
 
       <form class="navbar-form form-inline search-form ml-auto">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Nhập nội dung tìm kiếm">
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default">Tìm kiếm</button>
-          </span>
-        </div>
-		  </form>
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Nhập nội dung tìm kiếm">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default">Tìm kiếm</button>
+				</span>
+			</div>
+		</form>
     </div>
   </div>
 </nav>
@@ -295,70 +296,59 @@
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-  document.querySelectorAll('.delete-row').forEach(button => {
-    button.addEventListener('click', function () {
-      const row = this.closest('tr');
+  $(document).ready(function () {
+    $('.delete-row').on('click', function () {
+      const $row = $(this).closest('tr');
       if (confirm("Bạn có chắc chắn muốn xóa dòng này không?")) {
-        row.remove();
+        $row.remove();
       }
     });
-  });
-  document.addEventListener("DOMContentLoaded", function () {
-    const form = document.querySelector("#addTransactionModal form");
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault(); 
+    $('#addForm').on('submit', function (e) {
+      e.preventDefault();
 
-      
-      const khachHangInput = form.querySelector("input:nth-of-type(1)");
-      const nhanVienInput = form.querySelector("input:nth-of-type(2)");
-      const soTienInput = form.querySelector("#soTien");
-
-     
-      form.querySelectorAll(".text-danger").forEach(el => el.remove());
+      $('.text-danger.mt-1').remove();
 
       let isValid = true;
+      const $khachHangInput = $('#khachHang');
+      const $nhanVienInput = $('#nhanVien');
+      const $soTienInput = $('#soTien');
 
-      
-      if (!khachHangInput.value.trim()) {
-        showError(khachHangInput, "Vui lòng nhập tên khách hàng.");
+      if (!$khachHangInput.val().trim()) {
+        showError($khachHangInput, "Vui lòng nhập tên khách hàng.");
         isValid = false;
-      } else if (khachHangInput.value.length > 30) {
-        showError(khachHangInput, "Tên khách hàng không được quá 30 ký tự.");
+      } else if ($khachHangInput.val().length > 30) {
+        showError($khachHangInput, "Tên khách hàng không được quá 30 ký tự.");
         isValid = false;
       }
 
-      
-      if (!nhanVienInput.value.trim()) {
-        showError(nhanVienInput, "Vui lòng nhập tên nhân viên.");
+      if (!$nhanVienInput.val().trim()) {
+        showError($nhanVienInput, "Vui lòng nhập tên nhân viên.");
         isValid = false;
-      } else if (nhanVienInput.value.length > 30) {
-        showError(nhanVienInput, "Tên nhân viên không được quá 30 ký tự.");
+      } else if ($nhanVienInput.val().length > 30) {
+        showError($nhanVienInput, "Tên nhân viên không được quá 30 ký tự.");
         isValid = false;
       }
 
-      
-      if (!soTienInput.value || parseInt(soTienInput.value) < 0) {
-        showError(soTienInput, "Vui lòng nhập số tiền hợp lệ (≥ 0).");
+      const soTien = parseInt($soTienInput.val());
+      if (!$soTienInput.val() || soTien < 0) {
+        showError($soTienInput, "Vui lòng nhập số tiền hợp lệ (≥ 0).");
         isValid = false;
       }
 
       if (isValid) {
         alert("Giao dịch đã được thêm!");
-        form.reset();
-        const modal = bootstrap.Modal.getInstance(document.getElementById("addTransactionModal"));
+        this.reset();
+        const modal = bootstrap.Modal.getInstance($('#addTransactionModal')[0]);
         modal.hide();
       }
     });
 
-    function showError(input, message) {
-      const error = document.createElement("div");
-      error.className = "text-danger mt-1";
-      error.innerText = message;
-      input.parentElement.appendChild(error);
+    function showError($input, message) {
+      const $error = $('<div class="text-danger mt-1"></div>').text(message);
+      $input.parent().append($error);
     }
   });
-
 </script>
 </body>
 </html>
